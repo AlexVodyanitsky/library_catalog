@@ -1,14 +1,14 @@
 import logging
 from typing import Optional, Dict
 
-from .openlibrary_client import OpenLibraryClient
-
+from ....interfaces.base_book_enricher import BaseBookEnricher
+from ....interfaces.base_book_info_client import BaseBookInfoClient
 
 logger = logging.getLogger(__name__)
 
 
-class BookEnricher:
-    def __init__(self, client: OpenLibraryClient):
+class OpenLibraryBookEnricher(BaseBookEnricher):
+    def __init__(self, client: BaseBookInfoClient):
         self.client = client
 
     def enrich(self, title: str, author: str) -> Dict[str, Optional[str | float]]:
@@ -16,7 +16,7 @@ class BookEnricher:
 
         book_data = self.client.search_book(title, author)
         if not book_data:
-            logger.warning("Данные книги не найдены в OpenLibrary.")
+            logger.warning("Данные книги не найдены.")
             return {}
 
         work_key = book_data.get("key")
