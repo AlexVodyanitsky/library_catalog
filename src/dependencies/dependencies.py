@@ -4,7 +4,7 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 
 from ..core.config import settings
-from ..infrastructure.clients.openlibrary_client.book_enricher import BookEnricher
+from ..infrastructure.clients.openlibrary_client.openlibrary_book_enricher import OpenLibraryBookEnricher
 from ..infrastructure.clients.openlibrary_client.openlibrary_client import OpenLibraryClient
 from ..infrastructure.repositories.db_repository.database import SessionLocal
 from ..infrastructure.repositories.db_repository.db_repository import DBBookRepository
@@ -34,5 +34,5 @@ def get_book_service(db: Session = Depends(get_db)) -> BookService:
     else:
         raise ValueError(f"Unknown repository type: {repo_type}")
 
-    enricher = BookEnricher(OpenLibraryClient())
+    enricher = OpenLibraryBookEnricher(OpenLibraryClient())
     return BookService(repository, enricher=enricher)

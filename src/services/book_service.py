@@ -4,14 +4,14 @@ from typing import List, Optional
 from ..core.exceptions import BookNotFoundException, DataNotFoundException
 from ..models.schemas import Book, BookCreate, BookUpdate
 from ..interfaces.base_repository import BaseBookRepository
-from ..infrastructure.clients.openlibrary_client.book_enricher import BookEnricher
+from ..infrastructure.clients.openlibrary_client.openlibrary_book_enricher import OpenLibraryBookEnricher
 
 
 logger = logging.getLogger(__name__)
 
 
 class BookService:
-    def __init__(self, repository: BaseBookRepository, enricher: Optional[BookEnricher] = None):
+    def __init__(self, repository: BaseBookRepository, enricher: Optional[OpenLibraryBookEnricher] = None):
         self.repository = repository
         self.enricher = enricher
 

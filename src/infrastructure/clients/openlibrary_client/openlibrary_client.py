@@ -3,12 +3,12 @@ from typing import Optional, Dict, Any
 from urllib.parse import urlencode
 
 from ....interfaces.base_api_client import BaseApiClient
-
+from ....interfaces.base_book_info_client import BaseBookInfoClient
 
 logger = logging.getLogger(__name__)
 
 
-class OpenLibraryClient(BaseApiClient):
+class OpenLibraryClient(BaseApiClient, BaseBookInfoClient):
     @property
     def base_url(self) -> str:
         return "https://openlibrary.org"
